@@ -1,0 +1,27 @@
+---
+- name: Install epel-release repository
+  package:
+    name: epel-release
+    state: present
+
+- name: Install dependency packages
+  package:
+    name:
+      - gcc
+      - python-devel
+      - python-pip
+    state: present
+
+- name: Install glances python package
+  pip:
+    name: glances[cpuinfo]
+    state: present
+
+- name: Populate service facts
+  service_facts:
+
+- name: Install docker python package
+  pip:
+    name: docker
+    state: present
+  when: "'docker.service' in services"
